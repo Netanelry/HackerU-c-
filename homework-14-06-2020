@@ -1,0 +1,123 @@
+//qustion 9
+//Computer.cs
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleProject
+{
+    [DebuggerDisplay("{model}")]
+    class Computer
+    {
+        public string model;
+        public int price;
+        public int numberOfProcessors;
+        public float screenSize;
+        public bool isTurnOn;
+
+        public int tellMethePrice()
+        {
+            return price;
+        }
+
+        public float tellMethescreenSize()
+        {
+            return screenSize;
+        }
+
+        public void turnOn()
+        {
+            Console.WriteLine($"PING! Welcome, the computer {model} is turned on");
+            isTurnOn = true;
+        }
+
+        public void turnOff()
+        {
+            Console.WriteLine($"Goodbye, the computer {model} is shutting down");
+            isTurnOn = false;
+        }
+
+        public void addProcessor()
+        {
+            numberOfProcessors++;
+            Console.WriteLine($"You now have {numberOfProcessors} processors in your PC");
+        }
+
+        public override string ToString()
+        {
+            if (isTurnOn == true)
+            {
+                return $"Comuter model {model} has {numberOfProcessors} processors, a {screenSize} - inch screen and it costs {price} ILS. The computer is turned on.";
+            }
+            else
+            {
+                return $"Comuter model {model} has {numberOfProcessors} processors, a {screenSize} - inch screen and it costs {price} ILS. The computer is turned off.";
+            }
+    }
+    }
+}
+
+//Program.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Computer THGTTG = new Computer();
+            THGTTG.model = "deepThought";
+            THGTTG.price = 1979;
+            THGTTG.numberOfProcessors = 42;
+            THGTTG.screenSize = 42f;
+            THGTTG.isTurnOn = false;
+
+            THGTTG.turnOn();
+            Console.WriteLine($"The price for the computer {THGTTG.model} is {THGTTG.tellMethePrice()} ILS");
+            Console.WriteLine($"The computer {THGTTG.model} have a {THGTTG.tellMethescreenSize()}-inch screen");
+            THGTTG.addProcessor();
+            THGTTG.turnOff();
+
+            Computer terminator = new Computer
+            {
+                model = "skynet T-800",
+                price = 1984,
+                numberOfProcessors = 101,
+                screenSize = 188f,
+                isTurnOn = false
+            };
+
+            terminator.turnOn();
+            Console.WriteLine($"The price for the computer {terminator.model} is {terminator.tellMethePrice()} ILS");
+            Console.WriteLine($"The computer {terminator.model} have a {terminator.tellMethescreenSize()}-inch screen");
+            terminator.addProcessor();
+
+            Computer odyssey = new Computer
+            {
+                model = "hal9000",
+                price = 2001,
+                numberOfProcessors = 61,
+                screenSize = 10f,
+                isTurnOn = false
+            };
+
+            odyssey.turnOn();
+            Console.WriteLine($"The price for the computer {odyssey.model} is {odyssey.tellMethePrice()} ILS");
+            Console.WriteLine($"The computer {odyssey.model} have a {odyssey.tellMethescreenSize()}-inch screen");
+            odyssey.addProcessor();
+            odyssey.turnOff();
+
+            Console.ReadLine();
+        }
+    }
+}
