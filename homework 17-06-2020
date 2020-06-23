@@ -1,0 +1,223 @@
+// VehicleBase.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace homework_2
+{
+    abstract class VehicleBase
+    {
+        public int _numOfWheels;
+        public string _model;
+        public int _maxOfpass;
+        public int _maxSpeed;
+
+
+        public abstract int GetMaxNumOfPassengers();
+
+        public abstract int GetMaxSpeed();
+
+        public override string ToString()
+        {
+            return $"Vehicle model {_model} has {_numOfWheels} wheels, passengers' capacity of {_maxOfpass}, max speed of {_maxSpeed} km/h ";
+        }
+    }
+}
+
+// Carrier.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace homework_2
+{
+    class Carrier
+    {
+        public VehicleBase[] _vehicles;
+
+        public override string ToString()
+        {
+            return PrintList(_vehicles);
+        }
+
+        string PrintList(VehicleBase[] vehicleList)
+        {
+            string result = "";
+
+            for (int v = 0; v < vehicleList.Length; v++)
+            {
+                result = result + vehicleList[v].ToString() +"\n";
+            }
+
+            return result;
+        }
+    }
+}
+
+//Car.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace homework_2
+{
+    class Car : VehicleBase
+    {
+        public int _numOfDoors;
+        public override int GetMaxNumOfPassengers()
+        {
+            Console.WriteLine ("Please insert the passengers' capacity of the car");
+            int _maxOfpass;
+            int.TryParse(Console.ReadLine(), out _maxOfpass);
+            return _maxOfpass;
+        }
+
+        public override int GetMaxSpeed()
+        {
+            Console.WriteLine("Please insert the car's max speed");
+            int _maxSpeed;
+            int.TryParse(Console.ReadLine(), out _maxSpeed);
+            return _maxSpeed;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"and {_numOfDoors} doors.";
+        }
+    }
+}
+
+//Motorcycle.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace homework_2
+{
+    class Motorcycle : VehicleBase
+    {
+        public int _numOfHandBrakers;
+        public override int GetMaxNumOfPassengers()
+        {
+            Console.WriteLine("Please insert the passengers' capacity of the motorcycle");
+            int _maxOfpass;
+            int.TryParse(Console.ReadLine(), out _maxOfpass);
+            return _maxOfpass;
+        }
+
+        public override int GetMaxSpeed()
+        {
+            Console.WriteLine("Please insert the motorcycle's max speed");
+            int _maxSpeed;
+            int.TryParse(Console.ReadLine(), out _maxSpeed);
+            return _maxSpeed;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"and {_numOfHandBrakers} hand-brakers.";
+        }
+    }
+}
+
+// Program.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace homework_2
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Car deLorean = new Car();
+            deLorean._model = "BTTF";
+            deLorean._maxOfpass = 2;
+            deLorean._maxSpeed = 142;
+            deLorean._numOfDoors = 2;
+            deLorean._numOfWheels = 4;
+
+            Car pontiacFirebird = new Car();
+            pontiacFirebird._model = "KITT 2000";
+            pontiacFirebird._maxOfpass = 2;
+            pontiacFirebird._maxSpeed = 322;
+            pontiacFirebird._numOfDoors = 2;
+            pontiacFirebird._numOfWheels = 4;
+
+            Motorcycle harleyDavidson = new Motorcycle();
+            harleyDavidson._model = "Fat Boy";
+            harleyDavidson._maxOfpass = 1;
+            harleyDavidson._maxSpeed = 148;
+            harleyDavidson._numOfHandBrakers = 2;
+            harleyDavidson._numOfWheels = 2;
+
+            Carrier carrier = new Carrier()
+            {
+                _vehicles = new VehicleBase[]
+                {
+                    deLorean,
+                    pontiacFirebird,
+                    harleyDavidson
+
+                }
+            };
+
+            Carrier carrier2 = new Carrier()
+            {
+                _vehicles = new VehicleBase[]
+                {
+                    new Motorcycle()
+                    {
+                        _model = "Bonneville T120",
+                        _maxOfpass = 2,
+                        _maxSpeed = 174,
+                        _numOfHandBrakers = 2,
+                        _numOfWheels = 4,
+                    },
+
+                    new Car()
+                    {
+                        _model = "Batmobile",
+                        _maxOfpass = 2,
+                        _maxSpeed = 350,
+                        _numOfDoors = 2,
+                        _numOfWheels = 4,
+                    }
+                }
+            };
+
+
+
+        }
+            static void PrintVehicle(VehicleBase vehicle)
+        {
+            Console.WriteLine(vehicle._model);
+        }
+
+        static void PrintList(VehicleBase[] vehicleList)
+        {
+            for (int v = 0; v < vehicleList.Length; v++)
+            {
+                Console.WriteLine(vehicleList[v]);
+            }
+        }
+
+    }
+}
