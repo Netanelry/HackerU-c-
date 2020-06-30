@@ -1,0 +1,122 @@
+//Game.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+    class Game
+    {
+        public string _name = "";
+        public int _numOfPlyrs = 0;
+        public float _rating = 0f;
+        public string _originCountry = "";
+
+        public Game()
+        {
+
+        }
+
+        public Game(string cName, float cRating)
+        {
+            _name = cName;
+            _rating = 5.5f;
+        }
+
+        public Game(string cName, int cNumOfPlyrs, float cRating, string cOriginCountry)
+        {
+            _name = cName;
+            _numOfPlyrs = cNumOfPlyrs;
+            _rating = cRating;
+            _originCountry = cOriginCountry;
+        }
+
+        public Game(string cName, string cOriginCountry)
+        {
+            _name = cName;
+            _originCountry = cOriginCountry;
+        }
+
+        public int TellMeHowManyPlayers()
+        {
+            return _numOfPlyrs;
+        }
+
+        public override string ToString()
+        {
+            return $"The game {_name} is from {_originCountry}, can be played with up to {_numOfPlyrs} and have a rating of {_rating}";
+        }
+    }
+}
+
+//Program.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string uName;
+            int uNumOfPlyrs;
+            float uRating;
+            string uOriginCountry;
+
+        Game go = new Game
+            {
+                _name = "Gogoim",
+                _numOfPlyrs = 5,
+                _originCountry = "Israel",
+                _rating = 8.5f,
+            };
+
+            uName = "Corre, Corre la Guaraca";
+            uRating = 7f;
+            Game run = new Game(uName, uRating)
+            {
+             _name = uName,
+             _rating = uRating,
+            };
+            run._numOfPlyrs = 10;
+            run._originCountry = "Spain";
+
+            uName = "statues";
+            uOriginCountry = "Greece";
+            Game statues = new Game (uName, uOriginCountry)
+            { 
+                _name = uName,
+                _originCountry = uOriginCountry,
+            };
+            statues._numOfPlyrs = 4;
+            statues._rating = 9;
+
+            uName = "Pass the Parcel";
+            uNumOfPlyrs = 7;
+            uRating = 4f;
+            uOriginCountry = "United Kingdom";
+            Game pass = new Game(uName, uNumOfPlyrs, uRating, uOriginCountry)
+            { 
+            _name = uName,
+            _numOfPlyrs = uNumOfPlyrs,
+            _originCountry = uOriginCountry,
+            _rating = uRating,
+            };
+        }
+        static void PrintGame(Game game)
+        {
+            Console.WriteLine(game._name);
+            int number = game.TellMeHowManyPlayers();
+        }
+    }
+}
