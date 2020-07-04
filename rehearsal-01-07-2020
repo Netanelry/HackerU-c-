@@ -1,0 +1,351 @@
+//Program.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            FruitSalad salad = new FruitSalad()
+            {
+                _fruits = new FruitBase[]
+                {
+                    new Apple()
+                    {
+                        _name = "apple",
+                        _calories = 52,
+                        _color = "green",
+                        _isPinkLady = false,
+                    },
+
+                    new Orange()
+                    {
+                        _name = "orange",
+                        _calories = 47,
+                        _size = 7.62f,
+                    },
+
+                    new Banana()
+                    {
+                        _name = "banana",
+                        _calories = 89,
+                        _size = 20.32f,
+                        _hasBlackSpots = false,
+                        _isGreen = false,
+                    }
+                }
+            };
+
+            Apple newApple = new Apple()
+            {
+                _name = "Pink Lady",
+                _calories = 52,
+                _color = "pink",
+                _isPinkLady = false,
+            };
+
+            GetColor(newApple);
+
+            Banana newBanana = new Banana()
+            {
+                _name = "yBomb",
+                _calories = 89,
+                _size = 20.32f,
+                _hasBlackSpots = true,
+                _isGreen = false,
+            };
+
+            GetSize(newBanana);
+
+            GetTotalCaloriesOfSalad(salad);
+
+            HasMyFav(salad);
+        }
+        
+        //other functions
+        public static string GetColor(Apple apple)
+        {
+            return apple._color;
+        }
+
+        public static float GetSize(Banana banana)
+        {
+            return banana._size;
+        }
+
+        public static int GetTotalCaloriesOfSalad(FruitSalad fruitSalad)
+        {
+            int cal = 0;
+            foreach (FruitBase fruit in fruitSalad._fruits)
+            {
+                cal += fruit._calories;
+            }
+            return cal;
+        }
+
+        public static bool HasMyFav(FruitSalad fruitSalad)
+        {
+            foreach (FruitBase fruit in fruitSalad._fruits)
+            {
+                return true;
+            }
+            return false;
+        }
+
+    }
+}
+
+
+//FruitBase.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    public abstract class FruitBase
+    {
+        public string _name;
+        public int _calories;
+
+        public abstract bool IsMyFavorite();
+
+        public override string ToString()
+        {
+            return $"Fruit name is {_name}, it's have {_calories} calories";
+        }
+    }
+
+}
+
+
+//FruitSalad.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class FruitSalad
+    {
+        public FruitBase[] _fruits;
+
+        public int GetTotalCalories()
+        {
+            int cal = 0;
+            foreach (FruitBase fruit in _fruits)
+            {
+               cal += fruit._calories;
+            }
+            return cal;
+        }
+
+        public bool isHaveFavoriteFruit()
+        {
+            bool isContain = false;
+            foreach (FruitBase fruit in _fruits)
+            {
+                if (fruit.IsMyFavorite())
+                {
+                    isContain = true;
+                }
+            }
+            return isContain;
+        }
+
+        public override string ToString()
+        {
+            string allfruits = "";
+            foreach (FruitBase fruit in _fruits)
+            {
+                allfruits += fruit + "/n";
+            }
+            return allfruits;
+        }
+    }
+}
+
+
+//Apple
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Apple : FruitBase
+    {
+        public string _color;
+        public bool _isPinkLady;
+
+        public override bool IsMyFavorite()
+        {
+            bool isMyfav = false;
+            Console.WriteLine("Is this your favorite fruit? (lowercase y or n):");
+            string answer = Console.ReadLine();
+            if (answer.Equals("y"))
+            {
+                isMyfav = true;
+            }
+            return isMyfav;   
+        }
+
+        public override string ToString()
+        {
+            string PL = "";
+            if (_isPinkLady)
+            {
+                PL = "is a Pink Lady";
+            }
+            else
+            {
+                PL = "is not a Pink Lady";
+            }    
+
+            return base.ToString() + "," + $" it's color is{_color}, and " + PL;
+        }
+    }
+}
+
+
+//Banana.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Banana : FruitBase
+    {
+        public bool _hasBlackSpots;
+        public bool _isGreen;
+        public float _size;
+
+        public override bool IsMyFavorite()
+        {
+            bool isMyfav = false;
+            Console.WriteLine("Is this your favorite fruit? (lowercase y or n):");
+            string answer = Console.ReadLine();
+            if (answer.Equals("y"))
+            {
+                isMyfav = true;
+            }
+            return isMyfav;
+        }
+
+        public override string ToString()
+        {
+            string BS = "";
+            if (_hasBlackSpots)
+            {
+                BS = "has black spots";
+            }
+            else
+            {
+                BS = "dose not have black spots (yami)";
+            }
+
+            string g = "";
+            if (_isGreen)
+            {
+                g = "green";
+            }
+            else
+            {
+                g = "is not green";
+            }
+
+            return base.ToString() + $" size: {_size} this banana {BS} and is {g}";
+        }
+    }
+}
+
+
+//Orange.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Orange : FruitBase
+    {
+        public float _size;
+
+        public override bool IsMyFavorite()
+        {
+            bool isMyfav = false;
+            Console.WriteLine("Is this your favorite fruit? (lowercase y or n):");
+            string answer = Console.ReadLine();
+            if (answer.Equals("y"))
+            {
+                isMyfav = true;
+            }
+            return isMyfav;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $" size: {_size}";
+        }
+    }
+}
+
+
+//Mango.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    class Mango : FruitBase
+    {
+        public float _size;
+        public bool _isSoft;
+
+        public override bool IsMyFavorite()
+        {
+            bool isMyfav = false;
+            Console.WriteLine("Is this your favorite fruit? (lowercase y or n):");
+            string answer = Console.ReadLine();
+            if (answer.Equals("y"))
+            {
+                isMyfav = true;
+            }
+            return isMyfav;
+        }
+
+        public override string ToString()
+        {
+            string s = "";
+            if (_isSoft)
+            {
+                s = "soooo juicy....";
+            }
+            else
+            {
+                s = "not soft";
+            }
+            return base.ToString() + $" size: {_size} and is {s}";
+        }
+    }
+}
