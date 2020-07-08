@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,7 +73,7 @@ namespace ConsoleApp5
 
             Horse[] raceHorses = new Horse[i];
 
-            int c = -1;
+            int c = 0;
             foreach (Horse horse in horses)
             {
                 if (horse._isRacingHorse)
