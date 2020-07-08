@@ -68,7 +68,8 @@ namespace ConsoleApp5
             int i = -1;
             foreach (Horse horse in horses)
             {
-                i++;
+                if (horse._isRacingHorse)
+                    i++;
             }
 
             Horse[] raceHorses = new Horse[i];
