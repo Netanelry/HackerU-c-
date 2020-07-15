@@ -32,16 +32,15 @@ namespace ConsoleApp6
 
         public bool ChackValidity(Citizen citizen)
         {
-            bool chack = false;
             if (HasChildren(citizen))
             {
                 foreach (Citizen children in citizen._children)
                 {
-                    if (children._fatherID == citizen._id)
-                        chack = true;
+                    if (children._fatherID != citizen._id)
+                        return false;
                 }
             }
-            return chack;
+            return true;
         }
     }
 }
